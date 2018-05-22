@@ -62,6 +62,8 @@ long main( int argc, char *argv[] ) {
   // set the seed
   srand( seed );
 
+  clear();
+
   // generate the grids
   wordGen( &words );
   colorGen( &colors, team );

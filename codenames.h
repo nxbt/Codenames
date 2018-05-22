@@ -30,6 +30,8 @@
 
 #define C_BUFFER 8
 
+#define clear() printf("\033[H\033[J")
+
 #define FILE_PATH "./codenames.data"
 
 #define STR_GRID_CELL "%s%s"
