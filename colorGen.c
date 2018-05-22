@@ -20,25 +20,6 @@ void colorGen( char *( *colorsPtr )[], char team ) {
   int teamIds[NUM_CELLS] = {BLANK_ID};
   int i, tmp;
 
-  // if wildcard pick random team1
-  if( team == CHAR_WILD ) {
-    team = rand() % 2 == 0 ? CHAR_RED : CHAR_BLUE;
-  }
-
-  // if red is team1
-  if( team == CHAR_RED ) {
-    team1color = C_RED;
-    team2color = C_CYN;
-    printf( "Red is going first\n" );
-  }
-  // if blue is team1
-  else {
-    printf( "Blue is going first\n" );
-    team1color = C_CYN;
-    team2color = C_RED;
-  }
-
-
   // pick black cell
   teamIds[rand() % (NUM_CELLS)] = BLACK_ID;
 
@@ -58,6 +39,24 @@ void colorGen( char *( *colorsPtr )[], char team ) {
     } while( teamIds[tmp] != BLANK_ID );
 
     teamIds[tmp] = TEAM_2_ID;
+  }
+
+  // if wildcard pick random team1
+  if( team == CHAR_WILD ) {
+    team = rand() % 2 == 0 ? CHAR_RED : CHAR_BLUE;
+  }
+
+  // if red is team1
+  if( team == CHAR_RED ) {
+    team1color = C_RED;
+    team2color = C_CYN;
+    printf( "Red is going first\n" );
+  }
+  // if blue is team1
+  else {
+    printf( "Blue is going first\n" );
+    team1color = C_CYN;
+    team2color = C_RED;
   }
 
   // set colors for all of the cells

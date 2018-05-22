@@ -18,7 +18,7 @@
 #define CHAR_WILD 'x'
 
 #define MAX_WORDS 2000
-#define MAX_WORD_LEN 20
+#define MAX_WORD_LEN 21
 
 #define TEAM_1_SIZE 9
 #define TEAM_2_SIZE 8
@@ -35,8 +35,9 @@
 #define FILE_PATH "./codenames.data"
 
 #define STR_GRID_CELL "%s%s"
-#define STR_USAGE "%s [r/b/x] [seed]\n  Where [r/b/x] is what team goes first"\
-                  "\n  Where [seed] is a long\n\n"
+#define STR_USAGE "USAGE: %s [r/b/x] [seed]\n"\
+                  "  Where [r/b/x] is what team goes first\n"\
+                  "  Where [seed] is a long for random generation\n\n"
 
 #define C_NRM  "\x1B[0m"
 #define C_BLK  "\x1B[30m"
