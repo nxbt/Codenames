@@ -67,7 +67,7 @@ void colorGen( char *( *colorsPtr )[], char team ) {
     if( teamIds[i] == BLANK_ID ) 
       strncpy( (*colorsPtr)[i], C_WHT, strlen( C_WHT ) + 1 );
     else if( teamIds[i] == BLACK_ID ) 
-      strncpy( (*colorsPtr)[i], C_GRN, strlen( C_GRN ) + 1 );
+      strncpy( (*colorsPtr)[i], C_YEL, strlen( C_YEL ) + 1 );
     else if( teamIds[i] == TEAM_1_ID ) 
       strncpy( (*colorsPtr)[i], team1color, strlen( team1color ) + 1 );
     else if( teamIds[i] == TEAM_2_ID ) 

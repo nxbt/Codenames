@@ -68,6 +68,8 @@ long main( int argc, char *argv[] ) {
 
   printf( "The seed is: %ld\n\n", seed ); //TODO make macro in codenames.h
 
+  printf( B_BLK );
+
   // print the grid
   for( int i = 0; i < NUM_CELLS; i++ ) {
     printf( STR_GRID_CELL, colors[i], words[i] );
