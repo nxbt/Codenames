@@ -32,7 +32,7 @@
 
 #define FILE_PATH "./codenames.data"
 
-#define STR_GRID_CELL "%s%s%s"
+#define STR_GRID_CELL "%s%s"
 #define STR_USAGE "%s [r/b/x] [seed]\n  Where [r/b/x] is what team goes first"\
                   "\n  Where [seed] is a long\n\n"
 

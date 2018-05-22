@@ -29,9 +29,11 @@ void colorGen( char *( *colorsPtr )[], char team ) {
   if( team == CHAR_RED ) {
     team1color = C_RED;
     team2color = C_BLU;
+    printf( "Red is going first\n" );
   }
   // if blue is team1
   else {
+    printf( "Blue is going first\n" );
     team1color = C_BLU;
     team2color = C_RED;
   }

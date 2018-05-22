@@ -66,12 +66,15 @@ long main( int argc, char *argv[] ) {
   wordGen( &words );
   colorGen( &colors, team );
 
-  printf( "\n" );
+  printf( "The seed is: %ld\n\n", seed ); //TODO make macro in codenames.h
 
   // print the grid
   for( int i = 0; i < NUM_CELLS; i++ ) {
-    printf( STR_GRID_CELL, colors[i], words[i], C_NRM );
-    if( (i+1) % 5 == 0 ) printf( "\n" );
+    printf( STR_GRID_CELL, colors[i], words[i] );
+    if( (i+1) % GRID_SIZE == 0 ) printf( "\n" );
+
+    free( words[i] );
+    free( colors[i] );
   }
 
   printf( "%s\n", C_NRM );
