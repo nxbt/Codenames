@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#include <time.h>
 
 #include "codenames.h"
 
@@ -19,8 +20,8 @@ long main( int argc, char *argv[] ) {
 
   char *endptr;
 
-  char *( *words )[NUM_CELLS] = NULL;
-  char *( *colors )[NUM_CELLS] = NULL;
+  char *words[NUM_CELLS] = {NULL};
+  char *colors[NUM_CELLS] = {NULL};
 
   // too many args
   if( argc > MAX_ARGS ) {
@@ -35,12 +36,12 @@ long main( int argc, char *argv[] ) {
     seed = strtol( argv[SEED_INDEX], &endptr, 10 );
 
     // if an error occured...
-    if( !errno || *endptr != '\0' ) {
+    if( errno || *endptr != '\0' ) {
       fprintf( stderr, STR_USAGE, argv[0] );
       return EXIT_FAILURE;
     }    
   }
-  else seed = rand();
+  else seed = time(NULL);
 
   // check team
   if( argc >= TEAM_INDEX + 1 ) {
@@ -58,15 +59,22 @@ long main( int argc, char *argv[] ) {
   }
   else team = CHAR_WILD;
 
+  // set the seed
   srand( seed );
 
-  words = wordGen();
-  colors = colorGen( team );
+  // generate the grids
+  wordGen( &words );
+  colorGen( &colors, team );
 
+  printf( "\n" );
+
+  // print the grid
   for( int i = 0; i < NUM_CELLS; i++ ) {
-    printf( STR_GRID_CELL, (*colors)[i], (*words)[i] );
-    if( i % GRID_SIZE == 0 ) printf( "\n" );
+    printf( STR_GRID_CELL, colors[i], words[i], C_NRM );
+    if( (i+1) % 5 == 0 ) printf( "\n" );
   }
+
+  printf( "%s\n", C_NRM );
 
   return EXIT_SUCCESS;
 }

@@ -12,16 +12,13 @@
 
 #include "codenames.h"
 
-char *( *colorGen( char team ) )[] {
+void colorGen( char *( *colorsPtr )[], char team ) {
 
-  char *teams[NUM_CELLS];
   char *team1color;
   char *team2color;
 
   int teamIds[NUM_CELLS] = {BLANK_ID};
   int i, tmp;
-
-  char *( *teamsPtr )[NUM_CELLS] = &teams;
 
   // if wildcard pick random team1
   if( team == CHAR_WILD ) {
@@ -39,14 +36,15 @@ char *( *colorGen( char team ) )[] {
     team2color = C_RED;
   }
 
+
   // pick black cell
-  teamIds[rand() % NUM_CELLS] = BLACK_ID;
+  teamIds[rand() % (NUM_CELLS)] = BLACK_ID;
 
   // pick cells for team 1
   for( i = 0; i < TEAM_1_SIZE; i++ ) {
     do {
-      tmp = teamIds[rand() % NUM_CELLS];
-    } while( tmp != BLANK_ID );
+      tmp = rand() % (NUM_CELLS);
+    } while( teamIds[tmp] != 0 );
 
     teamIds[tmp] = TEAM_1_ID;
   }
@@ -54,25 +52,23 @@ char *( *colorGen( char team ) )[] {
   // pick cells for team 2
   for( i = 0; i < TEAM_2_SIZE; i++ ) {
     do {
-      tmp = teamIds[rand() % NUM_CELLS];
-    } while( tmp != BLANK_ID );
+      tmp = rand() % (NUM_CELLS);
+    } while( teamIds[tmp] != BLANK_ID );
 
     teamIds[tmp] = TEAM_2_ID;
   }
 
   // set colors for all of the cells
   for( i = 0; i < NUM_CELLS; i++ ) {
-    teams[i] = calloc( C_BUFFER, 1 );
+    (*colorsPtr)[i] = calloc( C_BUFFER, 1 );
 
     if( teamIds[i] == BLANK_ID ) 
-      strncpy( teams[i], C_WHT, strlen( C_WHT ) + 1 );
+      strncpy( (*colorsPtr)[i], C_WHT, strlen( C_WHT ) + 1 );
     else if( teamIds[i] == BLACK_ID ) 
-      strncpy( teams[i], C_GRN, strlen( C_GRN ) + 1 );
+      strncpy( (*colorsPtr)[i], C_GRN, strlen( C_GRN ) + 1 );
     else if( teamIds[i] == TEAM_1_ID ) 
-      strncpy( teams[i], team1color, strlen( team1color ) + 1 );
+      strncpy( (*colorsPtr)[i], team1color, strlen( team1color ) + 1 );
     else if( teamIds[i] == TEAM_2_ID ) 
-      strncpy( teams[i], team2color, strlen( team2color ) + 1 );
+      strncpy( (*colorsPtr)[i], team2color, strlen( team2color ) + 1 );
   }
-
-  return teamsPtr;
 }

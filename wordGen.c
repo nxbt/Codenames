@@ -13,17 +13,16 @@
 
 #include "codenames.h"
 
-char *( *wordGen() )[] {
+void wordGen( char *( *wordsPtr)[] ) {
+
+  int i;
 
   FILE *file;
-  char *words[NUM_CELLS];
   long numWords;
-
-  char *( *wordsPtr )[NUM_CELLS] = &words;
 
   char *tmp;
 
-  char wordList[MAX_WORDS][MAX_WORD_LEN];
+  char wordList[MAX_WORDS][MAX_WORD_LEN + 1];
 
   errno = 0;
   file = fopen( FILE_PATH, "r" );
@@ -32,7 +31,16 @@ char *( *wordGen() )[] {
 
   // creates array of all possible words
   while( fgets( wordList[numWords], MAX_WORD_LEN, file ) != NULL ) {
-//    *strchr( wordList[numWords], '\n' ) = '\0';
+    tmp = strchr( wordList[numWords], '\r' );
+    if( tmp ) *tmp = ' ';
+
+    tmp = strchr( wordList[numWords], '\n' );
+    if( tmp ) *tmp = ' ';
+
+    for( i = strlen( wordList[numWords] ); i < MAX_WORD_LEN - 1; i++ ) {
+      wordList[numWords][i] = ' ';
+    }
+
     numWords++;
   }
 
@@ -40,17 +48,15 @@ char *( *wordGen() )[] {
   fclose( file );
 
   // pick 25 distinct random words for the grid
-  for( int i = 0; i < NUM_CELLS; i++ ) {
+  for( i = 0; i < NUM_CELLS; i++ ) {
     // make sure the word is unique
     do {
       tmp = wordList[ rand() % numWords ];
     } while(*tmp == '\0');
 
     // allocate and copy 
-    words[i] = calloc( strlen( tmp ) + 1, 1 );
-    strncpy( words[i], tmp, strlen( tmp ) + 1 );
+    (*wordsPtr)[i] = calloc( MAX_WORD_LEN, 1 );
+    strncpy( (*wordsPtr)[i], tmp, MAX_WORD_LEN );
     *tmp = '\0';
   }
-
-  return wordsPtr;
 }

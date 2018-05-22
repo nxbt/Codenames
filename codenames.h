@@ -18,7 +18,7 @@
 #define CHAR_WILD 'x'
 
 #define MAX_WORDS 2000
-#define MAX_WORD_LEN 80
+#define MAX_WORD_LEN 20
 
 #define TEAM_1_SIZE 9
 #define TEAM_2_SIZE 8
@@ -28,11 +28,11 @@
 #define TEAM_2_ID 2
 #define BLACK_ID 3
 
-#define C_BUFFER 32
+#define C_BUFFER 8
 
 #define FILE_PATH "./codenames.data"
 
-#define STR_GRID_CELL "%s%s\t\t\t"
+#define STR_GRID_CELL "%s%s%s"
 #define STR_USAGE "%s [r/b/x] [seed]\n  Where [r/b/x] is what team goes first"\
                   "\n  Where [seed] is a long\n\n"
 
@@ -46,5 +46,5 @@
 #define C_WHT  "\x1B[37m"
 
 /* Function Prototypes */
-char *( *wordGen( void ) )[];
-char *( *colorGen( char team ) )[];
+void wordGen( char *( *wordPtr )[] );
+void colorGen( char *( *colorsPtr )[], char team );
